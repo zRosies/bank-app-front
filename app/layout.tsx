@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./ui/home/header";
 import Footer from "./ui/home/footer";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import jwt from "jsonwebtoken";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +19,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  //   if (userInfo.email) {
+  //     redirect("/dashboard");
+  //   }
+  // }
+
   return (
     <html lang="en">
       <body className={inter.className}>

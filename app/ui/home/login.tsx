@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { redirect } from "next/navigation";
+import jwt from "jsonwebtoken";
 
 export default function LoginComponent({
   setTranslateX,
@@ -31,20 +32,40 @@ export default function LoginComponent({
 
       console.log(password, email);
 
-      //   const response = await signIn("credentials", {
-      //     redirect: false,
-      //     email,
-      //     password,
-      //   });
+      const response = await fetch(`http://localhost:8080/authentication`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
 
-      //   if (response?.error) {
-      //     setError({ message: "Invalid email or password" });
-      //   }
-      //   if (response?.url) {
-      //     window.location.href = "/profile";
-      //   } else {
-      //     setError({ message: "" });
-      //   }
+      const data = await response.json();
+
+      console.log(data.jwtToken);
+
+      if (!response.ok) {
+        console.log(data);
+        setError({ message: data.message });
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (response.status == 200) {
+        //   console.log("test");
+        setError({ message: "" });
+        let date = new Date();
+        date.setTime(date.getTime() + 60 * 5 * 1000);
+        document.cookie = `accessToken=${
+          data.jwtToken
+        }; path=/; expires=${date.toUTCString()}; secure; domain=127.0.0.1; samesite=strict`;
+        window.location.href = "/dashboard";
+
+        setIsSubmitting(false);
+        //   // setAccountCreated(true);
+      }
     } catch (error: any) {
       console.log(error);
     }
@@ -62,13 +83,13 @@ export default function LoginComponent({
           onSubmit={Login}
         >
           <p className="text-center font-bold text-lg">Login</p>
-          <label htmlFor="cpf">
-            CPF
+          <label htmlFor="email">
+            Email
             <input
               className="bg-light py-1 w-full"
               type="text"
-              name="cpf"
-              id="cpf"
+              name="email"
+              id="email"
             />
           </label>
 
@@ -86,6 +107,7 @@ export default function LoginComponent({
             {" "}
             Sign in
           </button>
+          {error && <p className="text-sm text-red-500">{error.message}</p>}
           <p className="text-sm text-center">
             Do not have an account?{" "}
             <span

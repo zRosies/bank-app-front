@@ -4,6 +4,8 @@ import { IoIosArrowBack } from "react-icons/io";
 import { MdOutlineMail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineLoading } from "react-icons/ai";
+import BlackBackground from "../utils/blackback";
+import SuccessfulCreation from "../utils/sucessMessage";
 
 const Register = ({
   setTranslateX,
@@ -23,9 +25,9 @@ const Register = ({
   const RegisterUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError({ message: "" });
-    if (isSubmitting) {
-      return;
-    }
+    // if (isSubmitting) {
+    //   return;
+    // }
     setIsSubmitting(true);
 
     const form = e.currentTarget;
@@ -35,34 +37,46 @@ const Register = ({
     const passwor2 = (form.elements.namedItem("password2") as HTMLInputElement)
       .value;
 
+    const cpf = (form.elements.namedItem("cpf") as HTMLInputElement).value;
+
     if (passwor2 != password) {
       setError({ message: "As senhas não coincidem." });
       setIsSubmitting(false);
       return;
     }
 
+    // console.log(crypto.randomUUID());
+
+    // return;
     try {
-      const response = await fetch("/api/session/register", {
+      const response = await fetch(`http://localhost:8080/api/accounts`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          user_id: crypto.randomUUID(),
           email: email,
           password: password,
+          cpf: cpf,
+          store_owner: false,
         }),
       });
 
       const data = await response.json();
 
-      if (response.status === 400) {
-        setError(data);
+      if (!response.ok) {
+        console.log(data);
+        setError({ message: data.message });
         setIsSubmitting(false);
+        return;
       }
+
       if (response.status == 201) {
         setError({ message: "" });
         setIsSubmitting(false);
         setAccountCreated(true);
       }
     } catch (error: any) {
+      setIsSubmitting(false);
       console.log(error);
     }
   };
@@ -93,6 +107,15 @@ const Register = ({
             id="cpf"
           />
         </label>
+        <label htmlFor="email">
+          E-mail
+          <input
+            className="bg-light py-1 w-full"
+            type="text"
+            name="email"
+            id="email"
+          />
+        </label>
 
         <label htmlFor="password">
           Password
@@ -103,27 +126,28 @@ const Register = ({
             id="password"
           />
         </label>
-        <label htmlFor="password">
+        <label htmlFor="password2">
           Re-enter password
           <input
             className="bg-light w-full py-1 "
             type="text"
-            name="password"
-            id="password"
+            name="password2"
+            id="password2"
           />
         </label>
+        {error && <p className="text-red-500">{error.message}</p>}
 
         <button className="p-2 my-6 bg-primary text-white font-semibold">
           {" "}
           Register now
         </button>
       </form>
-      {/* <BlackBackground display={created} setDisplay={setTranslateX}>
+      <BlackBackground display={created} setDisplay={setAccountCreated}>
         <SuccessfulCreation
           setTranslateX={setTranslateX}
           hideSuccessfulMessage={setAccountCreated}
         />
-      </BlackBackground> */}
+      </BlackBackground>
     </>
   );
 };
