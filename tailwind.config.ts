@@ -19,6 +19,7 @@ const config: Config = {
       },
       animation: {
         loading: "loading .8s linear infinite",
+        up: "up 0.2s linear ",
       },
       keyframes: {
         loading: {
@@ -27,6 +28,14 @@ const config: Config = {
           },
           "100%": {
             transform: "rotate(360deg)",
+          },
+        },
+        up: {
+          "0%": {
+            top: "0%",
+          },
+          "100%": {
+            top: "50%",
           },
         },
       },

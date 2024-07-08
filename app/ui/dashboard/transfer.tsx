@@ -14,7 +14,7 @@ interface Message {
   user: UserInfo | null;
 }
 
-const Transfer = () => {
+const Transfer = ({ setReceiverInfo }: { setReceiverInfo: Function }) => {
   const [submitting, isSubmitting] = useState<Message>({
     submitting: false,
     error: "",
@@ -46,7 +46,7 @@ const Transfer = () => {
     <>
       <form
         onSubmit={getUser}
-        className="absolute z-40 bg-white w-[400px] translate-x-[-50%] translate-y-[-50%]  top-[50%] left-[50%] p-4 rounded-[6px] gap-3 flex flex-col"
+        className="absolute animate-up z-40 bg-white w-[400px] translate-x-[-50%] translate-y-[-50%]  top-[50%] left-[50%] p-4 rounded-[6px] gap-3 flex flex-col"
       >
         <h1>Who you want to transfer to?</h1>
         <div className="flex justify-between">
@@ -94,8 +94,14 @@ const Transfer = () => {
                 </p>
               </div>
 
-              {/* @ts-ignore */}
-              <GrNext className="p-2 rounded-[50%] text-white bg-primary w-[35px] h-[35px] flex items-center justify-center my-6 text-center cursor-pointer" />
+              <GrNext
+                /* @ts-ignore */
+                className="p-2 rounded-[50%] text-white bg-primary w-[35px] h-[35px] flex items-center justify-center my-6 text-center cursor-pointer"
+                /* @ts-ignore */
+                onClick={() =>
+                  setReceiverInfo({ showPricing: true, receiverInfo: {} })
+                }
+              />
             </div>
           </>
         )}

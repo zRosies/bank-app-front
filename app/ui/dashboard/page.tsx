@@ -1,5 +1,5 @@
 "use client";
-import { User } from "../utils/types";
+import { User, UserInfo } from "../utils/types";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoCardSharp } from "react-icons/io5";
 import { TbPigMoney } from "react-icons/tb";
@@ -7,9 +7,39 @@ import { FaMoneyBillTransfer } from "react-icons/fa6";
 import BlackBackground from "../utils/blackback";
 import { useState } from "react";
 import Transfer from "./transfer";
+import TransactionConfirmation from "./transactionConfirmation";
+import Price from "./price";
+
+export interface TransactionInfo {
+  showReceiverInfo: boolean;
+  showPricing: boolean;
+  transaction: Transaction;
+}
+
+interface Transaction {
+  value: number;
+  payer_id: string;
+  receiver_id: string;
+  transaction_type: string;
+  date: string;
+  status: string;
+}
+[];
 
 const DashboardMain = ({ user }: { user: User }) => {
   const [transfer, setTransfer] = useState<boolean>(false);
+  const [transactionInfo, setTransactionInfo] = useState<TransactionInfo>({
+    showReceiverInfo: false,
+    showPricing: false,
+    transaction: {
+      value: 0,
+      payer_id: "",
+      receiver_id: "",
+      transaction_type: "",
+      date: "",
+      status: "",
+    },
+  });
   return (
     <>
       <main className="my-12 mx-12">
@@ -62,7 +92,24 @@ const DashboardMain = ({ user }: { user: User }) => {
           </div>
         </section>
         <BlackBackground setDisplay={setTransfer} display={transfer}>
-          <Transfer />
+          {!transactionInfo.showPricing && (
+            <Transfer setReceiverInfo={setTransactionInfo} />
+          )}
+          {transactionInfo.showPricing && (
+            <Price
+              setTransactionInfo={setTransactionInfo}
+              transactionInfo={transactionInfo}
+            />
+          )}
+          {transactionInfo.showReceiverInfo && (
+            <>
+              <TransactionConfirmation
+                setReceiverInfo={setTransactionInfo}
+                receiverInfo={user.userInfo}
+                transactionInfo={transactionInfo}
+              />
+            </>
+          )}
         </BlackBackground>
       </main>
     </>

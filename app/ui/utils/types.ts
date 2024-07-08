@@ -14,11 +14,11 @@ export interface User {
   }[];
 }
 
-export interface UserInfo {
+export type UserInfo = {
   user_id: string;
   name: string;
   cpf: number;
   email: string;
   password: string;
   store_owner: boolean;
-}
+};
