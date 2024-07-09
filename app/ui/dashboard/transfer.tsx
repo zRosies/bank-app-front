@@ -37,6 +37,7 @@ const Transfer = ({ setReceiverInfo }: { setReceiverInfo: Function }) => {
       });
       return;
     }
+    console.log(user);
     isSubmitting({ submitting: false, error: null, user: user });
   }
 
@@ -46,7 +47,7 @@ const Transfer = ({ setReceiverInfo }: { setReceiverInfo: Function }) => {
     <>
       <form
         onSubmit={getUser}
-        className="absolute animate-up z-40 bg-white w-[400px] translate-x-[-50%] translate-y-[-50%]  top-[50%] left-[50%] p-4 rounded-[6px] gap-3 flex flex-col"
+        className="absolute animate-left z-40 bg-white w-[400px] translate-x-[-50%] translate-y-[-50%]  top-[50%] left-[50%] p-4 rounded-[6px] gap-3 flex flex-col"
       >
         <h1>Who you want to transfer to?</h1>
         <div className="flex justify-between">
@@ -99,7 +100,15 @@ const Transfer = ({ setReceiverInfo }: { setReceiverInfo: Function }) => {
                 className="p-2 rounded-[50%] text-white bg-primary w-[35px] h-[35px] flex items-center justify-center my-6 text-center cursor-pointer"
                 /* @ts-ignore */
                 onClick={() =>
-                  setReceiverInfo({ showPricing: true, receiverInfo: {} })
+                  setReceiverInfo({
+                    showPricing: true,
+                    receiverInfo: submitting.user,
+                    transaction: {
+                      receiver_id: submitting.user?.user_id,
+                      transaction_type: "cash",
+                      date: date.toLocaleDateString(),
+                    },
+                  })
                 }
               />
             </div>

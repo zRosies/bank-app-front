@@ -19,7 +19,7 @@ const config: Config = {
       },
       animation: {
         loading: "loading .8s linear infinite",
-        up: "up 0.2s linear ",
+        left: "left .1s ease-in ",
       },
       keyframes: {
         loading: {
@@ -30,12 +30,20 @@ const config: Config = {
             transform: "rotate(360deg)",
           },
         },
-        up: {
+        left: {
           "0%": {
-            top: "0%",
+            left: "30%",
           },
           "100%": {
-            top: "50%",
+            left: "50%",
+          },
+        },
+        right: {
+          "0%": {
+            left: "80%",
+          },
+          "100%": {
+            left: "50%",
           },
         },
       },

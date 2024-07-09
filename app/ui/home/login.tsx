@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { redirect } from "next/navigation";
+
+import { AiOutlineLoading } from "react-icons/ai";
 import jwt from "jsonwebtoken";
 
 export default function LoginComponent({
@@ -22,6 +24,7 @@ export default function LoginComponent({
     if (isSubmitting) {
       return;
     }
+    setIsSubmitting(true);
 
     try {
       const form = e.currentTarget;
@@ -103,9 +106,13 @@ export default function LoginComponent({
             />
           </label>
 
-          <button className="p-2 bg-primary text-white font-semibold">
+          <button className="p-2 bg-primary text-white font-semibold flex justify-center gap-3">
             {" "}
             Sign in
+            {isSubmitting && (
+              // @ts-ignore
+              <AiOutlineLoading className="animate-loading text-white h-5 w-5" />
+            )}
           </button>
           {error && <p className="text-sm text-red-500">{error.message}</p>}
           <p className="text-sm text-center">

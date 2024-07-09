@@ -5,18 +5,20 @@ import { IoCardSharp } from "react-icons/io5";
 import { TbPigMoney } from "react-icons/tb";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import BlackBackground from "../utils/blackback";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Transfer from "./transfer";
 import TransactionConfirmation from "./transactionConfirmation";
 import Price from "./price";
+import DashboardTransactions from "./dashboardTransactions";
 
 export interface TransactionInfo {
   showReceiverInfo: boolean;
   showPricing: boolean;
   transaction: Transaction;
+  receiverInfo: ReceiverInfo;
 }
 
-interface Transaction {
+export interface Transaction {
   value: number;
   payer_id: string;
   receiver_id: string;
@@ -25,6 +27,13 @@ interface Transaction {
   status: string;
 }
 [];
+
+interface ReceiverInfo {
+  name: string;
+  email: string;
+  cpf: string;
+  user_id: string;
+}
 
 const DashboardMain = ({ user }: { user: User }) => {
   const [transfer, setTransfer] = useState<boolean>(false);
@@ -39,13 +48,35 @@ const DashboardMain = ({ user }: { user: User }) => {
       date: "",
       status: "",
     },
+    receiverInfo: {
+      name: "",
+      email: "",
+      cpf: "",
+      user_id: "",
+    },
   });
+
+  useEffect(() => {
+    setTransactionInfo({
+      showReceiverInfo: false,
+      showPricing: false,
+      transaction: {
+        value: 0,
+        payer_id: "",
+        receiver_id: "",
+        transaction_type: "",
+        date: "",
+        status: "",
+      },
+      receiverInfo: { name: "", email: "", cpf: "", user_id: "" },
+    });
+  }, [transfer]);
   return (
     <>
-      <main className="my-12 mx-12">
+      <main className="md:my-20 mx-2 md:mx-12">
         <p>Hello, {user.userInfo.name}</p>
         <section>
-          <div className="p-5 flex flex-col shadow-md my-3 max-w-[400px] gap-5">
+          <div className="p-5 flex flex-col shadow-md my-6 max-w-[400px] gap-5">
             <p>Digital Account</p>
             <p className="font-extrabold flex justify-between items-center">
               R$ {user.balance.balance}
@@ -72,24 +103,7 @@ const DashboardMain = ({ user }: { user: User }) => {
               </p>
             </div>
           </div>
-          <div className="p-5 flex flex-col shadow-md my-3 max-w-[400px] gap-5">
-            <p className="text-[0.8rem]">Last Transactions</p>
-            <h1 className="font-semibold text-[0.9rem]">Transactions</h1>
-            <div className="flex justify-between">
-              <div></div>
-              <div>
-                <p>
-                  Earned <span></span>
-                </p>
-                <p>
-                  Spent <span></span>
-                </p>
-                <p>
-                  Balance <span></span>
-                </p>
-              </div>
-            </div>
-          </div>
+          <DashboardTransactions user={user} />
         </section>
         <BlackBackground setDisplay={setTransfer} display={transfer}>
           {!transactionInfo.showPricing && (
@@ -99,13 +113,14 @@ const DashboardMain = ({ user }: { user: User }) => {
             <Price
               setTransactionInfo={setTransactionInfo}
               transactionInfo={transactionInfo}
+              userInfo={user.userInfo}
             />
           )}
           {transactionInfo.showReceiverInfo && (
             <>
               <TransactionConfirmation
                 setReceiverInfo={setTransactionInfo}
-                receiverInfo={user.userInfo}
+                setTransfer={setTransfer}
                 transactionInfo={transactionInfo}
               />
             </>

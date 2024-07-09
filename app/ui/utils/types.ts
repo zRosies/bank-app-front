@@ -4,7 +4,7 @@ export interface User {
     user_id: string;
     balance: number;
   };
-  trasaction: {
+  transaction: {
     value: number;
     payer_id: string;
     receiver_id: string;

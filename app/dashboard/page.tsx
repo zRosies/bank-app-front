@@ -38,8 +38,6 @@ export default async function Dashboard() {
     email: userInfo.email,
   });
 
-  console.log(response.user_id);
-
   //   db = await initDb("picpay", "balance");
 
   const transaction: any = await fetch(
@@ -65,9 +63,11 @@ export default async function Dashboard() {
   const transactionData = await transaction.json();
   const user: User = {
     userInfo: response,
-    trasaction: transactionData || {},
+    transaction: transactionData,
     balance: balanceData || {},
   };
+
+  console.log(user.transaction);
 
   //   console.log(user);
 
