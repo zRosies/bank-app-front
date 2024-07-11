@@ -28,7 +28,7 @@ const Price = ({
 
   return (
     <>
-      <div className="absolute z-40 animate-left bg-white w-[400px] translate-x-[-50%] translate-y-[-50%]  top-[50%] left-[50%] p-4 rounded-[6px] gap-3 flex flex-col">
+      <div className="absolute z-40 animate-left bg-white w-[360px] md:w-[400px] translate-x-[-50%] translate-y-[-50%]  top-[50%] left-[50%] p-4 rounded-[6px] gap-3 flex flex-col">
         <p
           className="text-red-500 flex items-center hover:scale-105 duration-200 cursor-pointer"
           onClick={() =>

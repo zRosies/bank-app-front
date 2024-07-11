@@ -64,7 +64,7 @@ const Register = ({
       const data = await response.json();
 
       if (!response.ok) {
-        console.log(data);
+        // console.log(data);
         setError({ message: data.message });
         setIsSubmitting(false);
         return;

@@ -33,7 +33,7 @@ export default function LoginComponent({
       const password = (form.elements.namedItem("password") as HTMLInputElement)
         .value;
 
-      console.log(password, email);
+      // console.log(password, email);
 
       const response = await fetch(`http://localhost:8080/authentication`, {
         method: "POST",
@@ -47,10 +47,10 @@ export default function LoginComponent({
 
       const data = await response.json();
 
-      console.log(data.jwtToken);
+      // console.log(data.jwtToken);
 
       if (!response.ok) {
-        console.log(data);
+        // console.log(data);
         setError({ message: data.message });
         setIsSubmitting(false);
         return;

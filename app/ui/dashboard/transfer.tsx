@@ -37,7 +37,7 @@ const Transfer = ({ setReceiverInfo }: { setReceiverInfo: Function }) => {
       });
       return;
     }
-    console.log(user);
+    // console.log(user);
     isSubmitting({ submitting: false, error: null, user: user });
   }
 
@@ -47,7 +47,7 @@ const Transfer = ({ setReceiverInfo }: { setReceiverInfo: Function }) => {
     <>
       <form
         onSubmit={getUser}
-        className="absolute animate-left z-40 bg-white w-[400px] translate-x-[-50%] translate-y-[-50%]  top-[50%] left-[50%] p-4 rounded-[6px] gap-3 flex flex-col"
+        className="absolute animate-left z-40 bg-white w-[350px] md:w-[400px] translate-x-[-50%] translate-y-[-50%]  top-[50%] left-[50%] p-4 rounded-[6px] gap-3 flex flex-col"
       >
         <h1>Who you want to transfer to?</h1>
         <div className="flex justify-between">

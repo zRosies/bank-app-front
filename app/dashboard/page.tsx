@@ -67,7 +67,7 @@ export default async function Dashboard() {
     balance: balanceData || {},
   };
 
-  console.log(user.transaction);
+  // console.log(user.transaction);
 
   //   console.log(user);
 

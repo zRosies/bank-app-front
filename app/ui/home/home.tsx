@@ -7,7 +7,7 @@ import Register from "./register";
 export default function HomeMain() {
   const [translateXLogin, setTranslateX] = useState<boolean>(false);
   return (
-    <main className="flex flex-col md:flex-row justify-between max-w-[1920px] mx-auto">
+    <main className="flex flex-col md:flex-row justify-between ">
       <section className="w-full">
         <div className="max-w-[420px] h-[750px] mx-auto relative overflow-hidden">
           <LoginComponent
