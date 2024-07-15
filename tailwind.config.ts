@@ -16,10 +16,12 @@ const config: Config = {
       backgroundColor: {
         primary: "#933EC8",
         light: "#F1F1FF",
+        secondary: "#7222A3",
       },
       animation: {
         loading: "loading .8s linear infinite",
         left: "left .1s ease-in ",
+        skelAnimation: "skelAnimation 1s infinite ",
       },
       keyframes: {
         loading: {
@@ -44,6 +46,11 @@ const config: Config = {
           },
           "100%": {
             left: "50%",
+          },
+        },
+        skelAnimation: {
+          "100%": {
+            transform: "translateX(100%)",
           },
         },
       },

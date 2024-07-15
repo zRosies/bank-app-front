@@ -5,7 +5,7 @@ import { FaLinkedin } from "react-icons/fa6";
 const Footer = () => {
   return (
     <>
-      <footer className="bg-primary text-white px-5 pt-4 pb-1">
+      <footer className="bg-secondary text-white px-5 pt-4 pb-1">
         <div className="flex gap-2 justify-end self-end">
           <a href="www.instagram.com">
             {/* @ts-ignore */}

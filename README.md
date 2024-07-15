@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Overview
 
-## Getting Started
+The software is a bank transaction application that enables users to send and receive money through a web-based platform. The program features a secure login and registration system using JWT and encryption using password hashing. The users are allowed to see their transaction history and manage their accounts. The program contains a friendly interface built in React.js.
+The program fulfills all these requirements:
 
-First, run the development server:
+• The program has more than one page populated with information.
+• The software has a friendly interface, having many areas where the users can interact with.
+• The program contains JWT authentication.
+• The program includes error handling for CRUD requests.
+• The program has integration with the database.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[Software Demo Video](https://www.youtube.com/watch?v=EkR_5rf5l70)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Web Pages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The project has 2 pages, one for login and registration, and the other is a dashboard that allows the users to make interactions with the application sending transactions and seeing quantitative data.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# Development Environment
 
-## Learn More
+. Next.js
+. React.js
+. MongoDB
+. JWT
 
-To learn more about Next.js, take a look at the following resources:
+{Describe the programming language that you used and any libraries.}
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Useful Websites
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [Next.js](https://nextjs.org/)
+- [MongoDB](https://www.mongodb.com/docs/)
+- [JWT](https://jwt.io/)
 
-## Deploy on Vercel
+# Future Work
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Add more features for the users to interact.
+- Add FAQ page.
+- Add a interactive navbar,

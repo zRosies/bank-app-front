@@ -86,12 +86,19 @@ const DashboardTransactions = ({ user }: { user: User }) => {
               <p>Spent</p> <span className="text-red-500">$ {spent}</span>
             </div>
             <div className="flex justify-between text-[.7rem]  md:text-[0.9rem] w-[110px] px-2">
-              <p>Balance</p> <span>${earned - spent}</span>
+              <p>Balance</p>{" "}
+              <span
+                className={`${
+                  earned - spent < 0 ? "text-red-600" : "text-green-800"
+                }`}
+              >
+                ${earned - spent}
+              </span>
             </div>
           </div>
         </div>
         <button
-          className="bg-primary text-white p-1 w-[110px] rounded-[1rem] hover:bg-purple-500 duration-200 text-center justify-center flex self-end"
+          className="bg-primary text-white p-1 w-[110px] rounded-[.5rem] hover:bg-purple-500 duration-200 text-center justify-center flex self-end"
           onClick={() => setAllTransacions(true)}
         >
           See all

@@ -11,7 +11,11 @@ import TransactionConfirmation from "./transactionConfirmation";
 import Price from "./price";
 import DashboardTransactions from "./dashboardTransactions";
 import { BarChart } from "@mui/x-charts";
-import { Box } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { IoIosExit } from "react-icons/io";
+
+import Image from "next/image";
+import { CardSkeleton, TransactionSkeleton } from "../utils/skelectons";
 
 export interface TransactionInfo {
   showReceiverInfo: boolean;
@@ -100,8 +104,6 @@ const DashboardMain = ({ user }: { user: User }) => {
       };
     });
 
-  console.log("-------------------------------");
-  console.log(transactionSent);
   // Function to aggregate payments by month
   // It creates an array of 12 values separated by commas
   const aggregatePaymentsByMonth = (payments: any) => {
@@ -132,10 +134,14 @@ const DashboardMain = ({ user }: { user: User }) => {
     "November",
     "December",
   ];
+
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <>
-      <main className="md:my-20 mx-2 my-6 md:mx-12">
+      <main className="md:my-20 w-[98%] md:w-full my-6 md:px-12">
         <p className="mx-4">Hello, {user.userInfo.name}</p>
+
         <section className="flex flex-col md:flex-row justify-between">
           <section>
             <div className="p-5 flex flex-col shadow-lg my-6 max-w-[400px] gap-5">
@@ -188,26 +194,111 @@ const DashboardMain = ({ user }: { user: User }) => {
               )}
             </BlackBackground>
           </section>
+          <section className="flex flex-col-reverse md:flex-col">
+            <section className="flex flex-col md:flex-row">
+              <div className="flex flex-col mx-auto max-w-[280px] shadow-md p-4 rounded-md my-2">
+                <div className="flex justify-between ">
+                  <div className="">
+                    <h1 className="font-bold">Trust our team </h1>
+                    <p className="text-[0.7rem]">
+                      Stop worrying too much with your money. Our team will
+                      provide you
+                    </p>
+                    <p className="font-extrabold text-[1.1rem] text-purple-600">
+                      120% PROFIT
+                    </p>
+                  </div>
+                  <Image
+                    className="w-[120px] h-[120px]"
+                    src={"/team.png"}
+                    alt="businessTeam"
+                    width={200}
+                    height={200}
+                  />
+                </div>
+                <button
+                  type="button"
+                  className="bg-primary hover:bg-purple-500 duration-200 text-white p-1 rounded-md  mt-4 "
+                >
+                  More
+                </button>
+              </div>
 
-          <BarChart
-            xAxis={[
-              {
-                scaleType: "band",
-                data: monthsOfYear,
-                label: "Month of the Year",
-              },
-            ]}
-            series={[
-              { data: moneyReceivedArray, label: "Money Received" },
-              { data: moneySpentArray, label: "Money Spent" },
-            ]}
-            width={600}
-            height={400}
-          />
+              <div className="flex flex-col  mx-auto max-w-[280px] shadow-md p-4 rounded-md my-2">
+                <div className="flex justify-between ">
+                  <div className="">
+                    <h1 className="font-bold">New Cards </h1>
+                    <p className="text-[0.7rem]">
+                      Trust S7 for your purchases and receive your card now!
+                    </p>
+                    <p className="font-extrabold text-[1.1rem] text-purple-600">
+                      Gain Credit
+                    </p>
+                  </div>
+                  <Image
+                    className="w-[120px] h-[120px]"
+                    src={"/cards.png"}
+                    alt="businessTeam"
+                    width={200}
+                    height={200}
+                  />
+                </div>
+                <button
+                  type="button"
+                  className="bg-primary hover:bg-purple-500 duration-200 text-white p-1 rounded-md  mt-4 "
+                >
+                  More
+                </button>
+              </div>
+            </section>
+
+            <BarChart
+              xAxis={[
+                {
+                  scaleType: "band",
+                  data: monthsOfYear,
+                  label: "Transactions",
+                  labelStyle: {
+                    fontSize: 10,
+                  },
+                },
+              ]}
+              series={[
+                {
+                  data: moneyReceivedArray,
+                  label: "Received",
+                  color: "#B577DB",
+                },
+                {
+                  data: moneySpentArray,
+                  label: "Spent",
+                  color: "#E15F5F",
+                },
+              ]}
+              width={isSmallScreen ? 370 : 600}
+              height={isSmallScreen ? 500 : 400}
+            />
+          </section>
         </section>
+        {/* <TransactionSkeleton /> */}
       </main>
     </>
   );
 };
 
 export default DashboardMain;
+
+const CustomLegend = () => (
+  <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+    <Box sx={{ mr: 4 }}>
+      <Typography sx={{ color: "#B577DB", fontWeight: "bold" }}>
+        Received
+      </Typography>
+    </Box>
+    <Box>
+      <Typography sx={{ color: "#E15F5F", fontWeight: "bold" }}>
+        Spent
+      </Typography>
+    </Box>
+  </Box>
+);

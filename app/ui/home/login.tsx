@@ -100,7 +100,7 @@ export default function LoginComponent({
             Password
             <input
               className="bg-light w-full py-1 "
-              type="text"
+              type="password"
               name="password"
               id="password"
             />
